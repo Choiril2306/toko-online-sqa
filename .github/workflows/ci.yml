@@ -6,24 +6,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup PHP Environment
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.1'
-        coverage: xdebug # Diperlukan untuk Metrik Coverage
+        php-version: '8.3'
+        coverage: xdebug
 
     - name: Install PHP Dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer update --prefer-dist --no-progress
 
     - name: Run PHPUnit & Quality Metrics
       run: vendor/bin/phpunit tests/ --coverage-text
 
     - name: Setup Node.js for Cypress
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 22
 
     - name: Install NPM Dependencies
       run: npm install
@@ -32,4 +32,4 @@ jobs:
       run: php -S localhost:8000 &
 
     - name: Run Cypress E2E Tests (System Testing)
-      uses: cypress-io/github-action@v5
+      uses: cypress-io/github-action@v6
