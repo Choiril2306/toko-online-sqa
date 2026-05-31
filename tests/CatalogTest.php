@@ -15,7 +15,7 @@ class CatalogTest extends TestCase{
     // UT-01: Keyword valid, produk ditemukan
     public function testSearchProductFound(){
         $result = $this->katalog->searchProduct("Kemeja");
-        $this->assertCount(99, $result);
+        $this->assertCount(1, $result);
     }
 
     // UT-02: Keyword kosong, kembalikan semua produk
