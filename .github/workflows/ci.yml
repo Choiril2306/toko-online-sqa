@@ -3,19 +3,19 @@ on: [push, pull_request]
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest # Server Ubuntu sudah terinstal Chrome & Chromedriver
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup PHP Environment
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.1'
-        coverage: xdebug # Diperlukan untuk Metrik Coverage
+        php-version: '8.3'
+        coverage: xdebug
 
     - name: Install PHP Dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer update --prefer-dist --no-progress
 
     - name: Start PHP Server in Background
       run: php -S localhost:8000 &
@@ -24,5 +24,4 @@ jobs:
       run: chromedriver --port=9515 --url-base=wd/hub &
 
     - name: Run All Automated Tests & Quality Metrics
-      # Mengeksekusi seluruh pengujian di dalam folder tests/ (termasuk SystemTest.php)
       run: vendor/bin/phpunit tests/ --coverage-text
